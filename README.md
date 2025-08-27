@@ -3,7 +3,7 @@
 
 # MCP-based Engineering Agent: Architecture & MVP Plan
 
-## Architecture (Updated)
+## Architecture
 
 ### Core Agent
 
@@ -66,7 +66,7 @@
 
 2. **API Changes (protobuf-first)**
 
-   * Internal API MCP checks current `.proto` definitions from `AlphaFounders/protos`.
+   * Internal API MCP checks current `.proto`.
    * Suggests changes/new services.
    * Opens PR with updated `.proto` files.
    * Contract tests proposed automatically.
