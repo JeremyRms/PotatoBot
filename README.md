@@ -16,10 +16,17 @@
 1. **GitHub MCP**
 
    * Create branches, commits, and PRs.
-   * Enforce **conventional commit** style for commits and PR titles.
    * Ensure each PR is **<500 LOC** and represents a **self‑contained deliverable**.
    * Assign the **correct team reviewers** automatically based on repo ownership rules.
    * Propose initial code skeletons and link to API/test changes.
+   * PR & Commit Rules
+      - Conventional Commit enforced:
+      - feat:, fix:, chore:, refactor:, test:, etc.
+      - PR titles must match the same format.
+      - PR size cap: ≤ 500 lines of code.
+      - Agent splits larger scaffolds into multiple PRs.
+      - Each PR is a self-contained deliverable (compiles, tests run).
+      - CI hook: validate commit/PR format + line count.
 
 2. **Jira MCP**
 
@@ -40,6 +47,13 @@
    * Validate backward compatibility.
    * Use **Buf** to generate idiomatic Go code from `.proto` files.
    * Generate contract tests.
+   * MCP-GitHub must support multi-repo workflows (PRs across both protos and service repos).
+   * Workflow:
+      - Propose/edit .proto in protos repo.
+      - Use Buf to generate Go stubs.
+      - Commit generated code in the service repo (internal/api/, pkg/api/).
+      - Open linked PRs (one in protos, one in service repo).
+      - Both PRs reference the same Jira ticket.
 
 5. **Qase MCP**
 
