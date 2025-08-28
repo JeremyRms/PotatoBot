@@ -1,0 +1,126 @@
+# FastAgent Configuration File
+
+# Default Model Configuration:
+# 
+# Takes format:
+#   <provider>.<model_string>.<reasoning_effort?> (e.g. anthropic.claude-3-5-sonnet-20241022 or openai.o3-mini.low)
+# Accepts aliases for Anthropic Models: haiku, haiku3, sonnet, sonnet35, opus, opus3
+# and OpenAI Models: gpt-4.1, gpt-4.1-mini, o1, o1-mini, o3-mini
+#
+# If not specified, defaults to "haiku". 
+# Can be overriden with a command line switch --model=<model>, or within the Agent constructor.
+
+default_model: o3-mini
+
+models:
+  default:
+    provider: openai
+    type: gpt-4
+
+# Logging and Console Configuration:
+logger:
+    # level: "debug" | "info" | "warning" | "error"
+    # type: "none" | "console" | "file" | "http"
+    # path: "/path/to/logfile.jsonl"
+    level: "warning"
+
+    type: "console"
+    
+    # Switch the progress display on or off
+    progress_display: true
+
+    # Show chat User/Assistant messages on the console
+    show_chat: true
+    # Show tool calls on the console
+    show_tools: true
+    # Truncate long tool responses on the console 
+    truncate_tools: true
+
+# MCP Servers
+mcp:
+    servers:
+        fetch:
+            command: "uvx"
+            args: ["mcp-server-fetch"]
+        filesystem:
+            command: "npx"
+            args: ["-y", "@modelcontextprotocol/server-filesystem", "."]
+        github:
+            command: "npx"
+            args: ["-y", "@modelcontextprotocol/server-github@latest"]
+
+tools:
+  github.list_issues:
+    validate_input: true
+  github.list_commits:
+    validate_input: true
+  github.list_pull_requests:
+    validate_input: true
+  github.list_repositories:
+    validate_input: true
+  github.list_contributors:
+    validate_input: true
+  github.list_languages:
+    validate_input: true
+  github.list_stargazers:
+    validate_input: true
+  github.list_forks:
+    validate_input: true
+  github.list_releases:
+    validate_input: true
+  github.list_workflow_runs:
+    validate_input: true
+  github.search_repositories:
+    validate_input: true
+  github.search_users:
+    validate_input: true
+  github.search_issues:
+    validate_input: true
+  github.search_commits:
+    validate_input: true
+
+agents:
+  - name: github_stats_agent
+    servers: ["github"]
+    auto_tool_use: true
+    description: Agent to provide comprehensive GitHub statistics and analytics
+    expose_all_tools: true
+    allowed_tools:
+      # Repository Statistics
+      - github.list_repositories
+      - github.list_languages
+      - github.list_contributors
+      - github.list_stargazers
+      - github.list_forks
+      - github.list_releases
+      - github.list_tags
+      - github.list_branches
+      
+      # Activity Statistics
+      - github.list_commits
+      - github.list_issues
+      - github.list_pull_requests
+      - github.list_workflow_runs
+      - github.list_workflows
+      
+      # Search and Analytics
+      - github.search_repositories
+      - github.search_users
+      - github.search_issues
+      - github.search_commits
+      - github.search_code
+      
+      # Detailed Information
+      - github.get_repository
+      - github.get_issue
+      - github.get_pull_request
+      - github.get_commit
+      - github.get_user
+      - github.get_organization
+      
+      # Team and Collaboration
+      - github.list_teams
+      - github.list_members
+      - github.list_collaborators
+      - github.list_review_requests
+

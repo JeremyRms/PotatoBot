@@ -41,7 +41,7 @@
 
 4. **Internal API MCP** *(protobuf/gRPC aware)*
 
-   * Parse `.proto` files from the central repo [`AlphaFounders/protos`](https://github.com/AlphaFounders/protos).
+   * Parse `.proto` files from a central repo.
    * Access **private repos** via **SSH keys**.
    * Propose **API changes first** (before code skeletons).
    * Validate backward compatibility.
